@@ -13,10 +13,12 @@ import java.util.List;
  */
 public class Customer {
     
-    private long customerId;
+    private long id;
     private String name;
     private String surname;
     private String email;
+    private String password;
+    private String role;
     private int houseNumber;
     private String city;
     private String province;
@@ -31,11 +33,13 @@ public class Customer {
     
     public Customer(String name, String surname, String email, int houseNumber, 
             String city, String province, int postalCode,
-            String complex, String street)
+            String complex, String street, String password, String role)
     {
         this.name = name;
         this.surname = surname;
         this.email = email;
+        this.password = password;
+        this.role = role;
         this.houseNumber = houseNumber;
         this.city = city;
         this.province = province;
@@ -45,11 +49,11 @@ public class Customer {
     }
     
     public Long getCustomerID() {
-        return customerId;
+        return id;
     }
     
-    public void setCustomerID(Long id) {
-        customerId = id;
+    public void setCustomerID(Long i) {
+        id = i;
     }
 
     public String getName() 
@@ -78,6 +82,22 @@ public class Customer {
         email = em;
     }
 
+     public String getPassword() {
+         return password;
+     }
+     
+     public void setPassword(String pass)
+     {
+         password = pass;
+     }
+     
+     public String getRole() {
+         return role;
+     }
+     
+     public void setRole(String ro) {
+         role = ro;
+     }
 
     public int getHouseNumber() {
         return houseNumber;

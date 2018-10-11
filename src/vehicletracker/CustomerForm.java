@@ -5,17 +5,43 @@
  */
 package vehicletracker;
 
+import com.google.gson.Gson;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
 /**
  *
  * @author gemorgan
  */
 public class CustomerForm extends javax.swing.JFrame {
 
+    private int cusID;
     /**
      * Creates new form CustomerForm
      */
     public CustomerForm() {
         initComponents();
+        jPanelMain.setVisible(false);
+        jPanel1.setVisible(false);
+        
     }
 
     /**
@@ -27,21 +53,905 @@ public class CustomerForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanelMain = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        btnViewCars = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        btnViewRented = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        lblAmount = new javax.swing.JLabel();
+        btnPayRent = new javax.swing.JButton();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jLabel3 = new javax.swing.JLabel();
+        lblTotalDays = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
+        btnSignin = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        btnRegister = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel2.setText("Your rented cars");
+
+        jButton2.setText("Rent Car ->");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("<- Return Car");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Make", "Model", "Year", "NumberPlate", "Category", "ID"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel1.setText("Available cars to rent");
+
+        btnViewCars.setText("View Available Cars");
+        btnViewCars.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewCarsActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sedans", "SUVs", "Limos", "Trailers", "Buses" }));
+
+        jButton1.setText("View by Category");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Amount", "Rent Date", "Return Date"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        btnViewRented.setText("View Rented Cars");
+        btnViewRented.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewRentedActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelMainLayout = new javax.swing.GroupLayout(jPanelMain);
+        jPanelMain.setLayout(jPanelMainLayout);
+        jPanelMainLayout.setHorizontalGroup(
+            jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelMainLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelMainLayout.createSequentialGroup()
+                        .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelMainLayout.createSequentialGroup()
+                                .addComponent(btnViewCars)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(53, 53, 53)
+                                .addComponent(jButton1)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton3)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnViewRented)))
+                    .addGroup(jPanelMainLayout.createSequentialGroup()
+                        .addGap(166, 166, 166)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(221, 221, 221)))
+                .addGap(15, 15, 15))
+        );
+        jPanelMainLayout.setVerticalGroup(
+            jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
+                        .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelMainLayout.createSequentialGroup()
+                                .addGap(142, 142, 142)
+                                .addComponent(jButton2)
+                                .addGap(66, 66, 66)
+                                .addComponent(jButton3))
+                            .addGroup(jPanelMainLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(btnViewRented)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnViewCars))))
+        );
+
+        jLabel7.setText("Rent Date");
+
+        jLabel8.setText("Return Date");
+
+        jButton4.setText("Calculate");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Amount");
+
+        lblAmount.setText("0.00");
+
+        btnPayRent.setText("Pay and Rent");
+        btnPayRent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPayRentActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Total Days");
+
+        lblTotalDays.setText("0");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblTotalDays))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblAmount))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnPayRent)
+                                .addGap(60, 60, 60)))))
+                .addGap(43, 43, 43))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8)
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(lblAmount))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblTotalDays))
+                .addGap(16, 16, 16)
+                .addComponent(btnPayRent)
+                .addGap(22, 22, 22))
+        );
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setText("Vehicle Tracker");
+
+        jLabel5.setText("Email");
+
+        jLabel6.setText("Password");
+
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
+
+        btnSignin.setText("Sign In");
+        btnSignin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSigninActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("Not already a user? Click Register to become a user.");
+
+        btnRegister.setText("Register");
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addComponent(btnRegister))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtUsername)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSignin)
+                        .addGap(5, 5, 5)))
+                .addGap(23, 23, 23))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSignin)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel5))
+                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnRegister, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(89, 89, 89))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(357, 357, 357)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnViewCarsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewCarsActionPerformed
+        // TODO add your handling code here:
+         CredentialsProvider provider = new BasicCredentialsProvider();
+        UsernamePasswordCredentials credentials
+         = new UsernamePasswordCredentials("root", "root");
+        provider.setCredentials(AuthScope.ANY, credentials);
+        
+        
+        try
+        {
+        HttpClient client = HttpClientBuilder.create()
+                 .setDefaultCredentialsProvider(provider)
+                .build();
+        HttpGet request = new HttpGet("http://localhost:8080/car/readAllCars"); 
+        HttpResponse response = client.execute(request);
+        
+        
+        String json = EntityUtils.toString(response.getEntity());
+        Gson gson = new Gson();// TODO add your handling code here:
+        Car[] cars = gson.fromJson(json, Car[].class);
+        
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        
+        for(Car thing : cars) {
+           if (thing.getStatus())
+          {
+            Object[] rowData = new Object[]{
+                thing.getMake(),
+                thing.getModel(),
+                thing.getYear(),
+                thing.getNumberPlate(),
+                thing.getCategoryId(),
+                thing.getID()
+            };
+            model.addRow(rowData);
+           }
+        }
+        
+        }
+   
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnViewCarsActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+              CredentialsProvider provider = new BasicCredentialsProvider();
+        UsernamePasswordCredentials credentials
+         = new UsernamePasswordCredentials("root", "root");
+        provider.setCredentials(AuthScope.ANY, credentials);
+        
+        
+        try
+        {
+        HttpClient client = HttpClientBuilder.create()
+                 .setDefaultCredentialsProvider(provider)
+                .build();
+        HttpGet request = new HttpGet("http://localhost:8080/car/readAllCars"); 
+        HttpResponse response = client.execute(request);
+        
+        
+        String json = EntityUtils.toString(response.getEntity());
+        Gson gson = new Gson();// TODO add your handling code here:
+        Car[] cars = gson.fromJson(json, Car[].class);
+        
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        
+        for(Car thing : cars) {
+            Object[] rowData = new Object[]{
+                thing.getMake(),
+                thing.getModel(),
+                thing.getYear(),
+                thing.getNumberPlate(),
+                thing.getCategoryId(),
+                thing.getID()
+            };
+            if(jComboBox1.getSelectedItem() == "Sedans")
+            {
+                if(thing.getCategoryId() == 1 )
+                {
+                     model.addRow(rowData);
+                }
+            }
+            
+             if(jComboBox1.getSelectedItem() == "SUVs")
+            {
+                if(thing.getCategoryId() == 2 )
+                {
+                     model.addRow(rowData);
+                }
+            }
+             
+              if(jComboBox1.getSelectedItem() == "Limos")
+            {
+                if(thing.getCategoryId() == 3 )
+                {
+                     model.addRow(rowData);
+                }
+            }
+              
+               if(jComboBox1.getSelectedItem() == "Trailer")
+            {
+                if(thing.getCategoryId() == 4 )
+                {
+                     model.addRow(rowData);
+                }
+            }
+               
+                if(jComboBox1.getSelectedItem() == "Buses")
+            {
+                if(thing.getCategoryId() == 5 )
+                {
+                     model.addRow(rowData);
+                }
+            }
+           
+        }
+        
+        }
+   
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        jPanelMain.setVisible(false);
+        jPanel1.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        
+        int selectedRow = jTable1.getSelectedRow();
+        selectedRow = jTable1.convertRowIndexToModel(selectedRow);
+        int val1 = (int)jTable1.getModel().getValueAt(selectedRow,4);
+        
+        String name = "";
+        
+        if(val1 == 1)
+        {
+            name = "Sedans";
+        }
+        
+        if(val1 == 2)
+        {
+            name = "SUVs";
+        }
+        
+        if(val1 == 3)
+        {
+            name = "Limos";
+        }
+        
+        if(val1 == 4)
+        {
+            name = "Trailer";
+        }
+        
+        if(val1 == 5)
+        {
+            name = "Buses";
+        }
+        
+         CredentialsProvider provider = new BasicCredentialsProvider();
+       UsernamePasswordCredentials credentials
+        = new UsernamePasswordCredentials("root", "root");
+       provider.setCredentials(AuthScope.ANY, credentials);
+        
+        
+      try
+         {
+       HttpClient client = HttpClientBuilder.create()
+                .setDefaultCredentialsProvider(provider)
+                .build();
+        HttpGet request = new HttpGet("http://localhost:8080/category/findByName/" +name); 
+        HttpResponse response = client.execute(request);
+        
+        
+        String json = EntityUtils.toString(response.getEntity());
+        Gson gson = new Gson();// TODO add your handling code here:
+        Category category = gson.fromJson(json, Category.class);
+        
+        double price = category.getPrice();
+        
+        LocalDateTime from = LocalDateTime.ofInstant(jDateChooser1.getDate().toInstant(), ZoneId.systemDefault());
+        LocalDateTime to = LocalDateTime.ofInstant(jDateChooser2.getDate().toInstant(), ZoneId.systemDefault());
+
+        Duration d = Duration.between(from, to);
+       
+        double totprice = d.toDays() * price;
+        String totprilbl = Double.toString(totprice);
+        lblAmount.setText(totprilbl);
+        lblTotalDays.setText(Long.toString(d.toDays()));
+        
+        }
+         catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void btnPayRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayRentActionPerformed
+        // TODO add your handling code here:
+        
+        
+        int selectedRow = jTable1.getSelectedRow();
+        selectedRow = jTable1.convertRowIndexToModel(selectedRow);
+        Long carIdx = (Long)jTable1.getModel().getValueAt(selectedRow,5);
+        
+        int selectedRow2 = jTable1.getSelectedRow();
+        selectedRow2 = jTable1.convertRowIndexToModel(selectedRow);
+        String make = (String)jTable1.getModel().getValueAt(selectedRow,0);
+        
+        int selectedRow3 = jTable1.getSelectedRow();
+        selectedRow3 = jTable1.convertRowIndexToModel(selectedRow);
+        String modelx = (String)jTable1.getModel().getValueAt(selectedRow,1);
+        
+        int selectedRow4 = jTable1.getSelectedRow();
+        selectedRow4 = jTable1.convertRowIndexToModel(selectedRow);
+        int year = (int)jTable1.getModel().getValueAt(selectedRow,2);
+        
+        int selectedRow5 = jTable1.getSelectedRow();
+        selectedRow5 = jTable1.convertRowIndexToModel(selectedRow);
+        String numberPlate = (String)jTable1.getModel().getValueAt(selectedRow,3);
+        
+        int selectedRow6 = jTable1.getSelectedRow();
+        selectedRow6 = jTable1.convertRowIndexToModel(selectedRow);
+        int catIDx = (int)jTable1.getModel().getValueAt(selectedRow,4);
+        
+          CredentialsProvider provider = new BasicCredentialsProvider();
+       UsernamePasswordCredentials credentials
+        = new UsernamePasswordCredentials("root", "root");
+       provider.setCredentials(AuthScope.ANY, credentials);
+        
+       
+       try
+       {
+           
+           
+           DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+           
+             
+        HttpClient client = HttpClientBuilder.create()
+                .setDefaultCredentialsProvider(provider)
+                .build();
+        HttpPost request = new HttpPost("http://localhost:8080/rent/rentCar");
+        
+        Gson gson = new Gson();
+        Rent rent = new Rent();
+        rent.setRentDate(dateFormat.format(jDateChooser1.getDate()));
+        rent.setReturnDate(dateFormat.format(jDateChooser2.getDate()));
+        rent.setTotalPrice(new BigDecimal(lblAmount.getText()));
+        rent.setRentalDays(Integer.parseInt(lblTotalDays.getText()));
+        rent.setOutstanding(true);
+        rent.setCustomerID(cusID);
+       
+        String jsonInString = gson.toJson(rent);
+        
+        StringEntity entity = new StringEntity(jsonInString);
+        request.setEntity(entity);
+        request.setHeader("Accept", "application/json");
+        request.setHeader("Content-type", "application/json");
+        
+        HttpResponse response = client.execute(request);
+        
+        String jsonBowl = EntityUtils.toString(response.getEntity());
+        Gson gsonBowl = new Gson();// TODO add your handling code here:
+        rent = gsonBowl.fromJson(jsonBowl, Rent.class);
+        
+       /* HttpClient client4 = HttpClientBuilder.create()
+                .setDefaultCredentialsProvider(provider)
+                .build();
+        HttpGet request4 = new HttpGet("http://localhost:8080/car/readCar/"+cusID);
+        HttpResponse response4 = client4.execute(request4);
+        
+        
+        String json4 = EntityUtils.toString(response4.getEntity());
+        System.out.println(json4);
+        Gson gson4 = new Gson();// TODO add your handling code here:
+        Car car4 = gson4.fromJson(json4, Car.class);
+    */
+            HttpClient client3 = HttpClientBuilder.create()
+                .setDefaultCredentialsProvider(provider)
+                .build();
+        HttpPut request3 = new HttpPut("http://localhost:8080/car/updateCar");
+        
+        Gson gson3 = new Gson();
+            Car car = new Car();
+            
+            car.setID(carIdx);
+            car.setMake(make);
+            car.setModel(modelx);
+            car.setYear(year);
+            car.setNumberPlate(numberPlate);
+            car.setStatus(false);
+            car.setCategoryId(catIDx);
+            car.setCustomerId(cusID);
+            
+            
+            String jsonStr = gson3.toJson(car);
+            System.out.println(jsonStr);
+
+            StringEntity entity4 = new StringEntity(jsonStr);
+            request3.setEntity(entity4);
+            request3.setHeader("Accept", "application/json");
+            request3.setHeader("Content-type", "application/json");
+
+
+            HttpResponse response3 = client3.execute(request3);  
+            
+            String jsonU = EntityUtils.toString(response3.getEntity());
+        Gson gsonU = new Gson();// TODO add your handling code here:
+        car = gsonU.fromJson(jsonU, Car.class);
+        
+        DefaultTableModel model3 = (DefaultTableModel) jTable1.getModel();
+        model3.setRowCount(0);
+        
+        jPanel1.setVisible(false);
+        jPanelMain.setVisible(true);
+       }
+       
+       
+       
+       catch (Exception e)
+       {
+           e.printStackTrace();
+       }
+       
+    }//GEN-LAST:event_btnPayRentActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void btnSigninActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigninActionPerformed
+        // TODO add your handling code here:
+        
+        CredentialsProvider provider = new BasicCredentialsProvider();
+       UsernamePasswordCredentials credentials
+        = new UsernamePasswordCredentials("root", "root");
+       provider.setCredentials(AuthScope.ANY, credentials);
+       
+       String email = txtUsername.getText();
+       String password = txtPassword.getText();
+       
+       if(email.equals("admin") & password.equals("admin"))
+         {
+             this.setVisible(false);
+             AdminForm form2 = new AdminForm();
+             form2.setVisible(true);
+         }
+       else
+       {
+       try 
+       {
+           
+           
+           HttpClient client = HttpClientBuilder.create()
+                 .setDefaultCredentialsProvider(provider)
+                .build();
+             
+        HttpGet request = new HttpGet("http://localhost:8080/customer/findByEmail/"+email); 
+        HttpResponse response = client.execute(request);
+        
+        String json = EntityUtils.toString(response.getEntity());
+        Gson gson = new Gson();// TODO add your handling code here:
+        Customer customer = gson.fromJson(json, Customer.class);
+        
+        if (!email.equals(customer.getEmail()) || !password.equals(customer.getPassword()))
+        {
+            JOptionPane.showMessageDialog(null, "Incorrect user! Please try again");
+        }
+        
+         cusID = customer.getCustomerID().intValue();
+         
+       
+          jPanelMain.setVisible(true);
+          jPanel2.setVisible(false);
+         
+       }
+       
+       catch (Exception e)
+       {
+           
+       }
+       }
+        
+    }//GEN-LAST:event_btnSigninActionPerformed
+
+    private void btnViewRentedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRentedActionPerformed
+        // TODO add your handling code here:
+        
+         CredentialsProvider provider = new BasicCredentialsProvider();
+        UsernamePasswordCredentials credentials
+         = new UsernamePasswordCredentials("root", "root");
+        provider.setCredentials(AuthScope.ANY, credentials);
+        
+        try
+        {
+        HttpClient client = HttpClientBuilder.create()
+                 .setDefaultCredentialsProvider(provider)
+                .build();
+        HttpGet request = new HttpGet("http://localhost:8080/rent/findAllRentedCars"); 
+        HttpResponse response = client.execute(request);
+        
+        
+        String json = EntityUtils.toString(response.getEntity());
+        System.out.println(json);
+        Gson gson = new Gson();// TODO add your handling code here:
+        Rent[] rents = gson.fromJson(json, Rent[].class);
+        
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        
+        for(Rent thing : rents) {
+            
+            Object[] rowData = new Object[]{
+                thing.getID(),
+                thing.getTotalPrice(),
+                thing.getRentDate(),
+                thing.getReturnDate()
+            };
+            model.addRow(rowData);
+           }
+       
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnViewRentedActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        
+        CredentialsProvider provider = new BasicCredentialsProvider();
+       UsernamePasswordCredentials credentials
+        = new UsernamePasswordCredentials("root", "root");
+       provider.setCredentials(AuthScope.ANY, credentials);
+       
+       try {
+        
+             HttpClient client = HttpClientBuilder.create()
+                 .setDefaultCredentialsProvider(provider)
+                .build();
+             
+        HttpGet request = new HttpGet("http://localhost:8080/rent/findRentedItem/"+cusID); 
+        HttpResponse response = client.execute(request);
+        
+        String json = EntityUtils.toString(response.getEntity());
+        Gson gson = new Gson();// TODO add your handling code here:
+        Rent rent = gson.fromJson(json, Rent.class);
+            
+        HttpClient client2 = HttpClientBuilder.create()
+                 .setDefaultCredentialsProvider(provider)
+                .build();
+             
+        HttpGet request2 = new HttpGet("http://localhost:8080/car/readCar/"+cusID); 
+        HttpResponse response2 = client2.execute(request2);
+        
+        String json2 = EntityUtils.toString(response2.getEntity());
+        Gson gson2 = new Gson();// TODO add your handling code here:
+        Car car2 = gson2.fromJson(json2, Car.class);
+       
+         HttpClient client3 = HttpClientBuilder.create()
+                .setDefaultCredentialsProvider(provider)
+                .build();
+        HttpPut request3 = new HttpPut("http://localhost:8080/car/updateCar");
+        
+        Gson gson3 = new Gson();
+            Car car = new Car();
+            
+            car.setID(car2.getID());
+            car.setMake(car2.getMake());
+            car.setModel(car2.getModel());
+            car.setYear(car2.getYear());
+            car.setNumberPlate(car2.getNumberPlate());
+            car.setStatus(true);
+            car.setCategoryId(car2.getCategoryId());
+            car.setCustomerId(0);
+            
+            
+            String jsonStr = gson3.toJson(car);
+
+            StringEntity entity4 = new StringEntity(jsonStr);
+            request3.setEntity(entity4);
+            request3.setHeader("Accept", "application/json");
+            request3.setHeader("Content-type", "application/json");
+
+
+            HttpResponse response3 = client3.execute(request3);  
+            
+            String jsonU = EntityUtils.toString(response3.getEntity());
+        Gson gsonU = new Gson();// TODO add your handling code here:
+        car = gsonU.fromJson(jsonU, Car.class);
+        
+        HttpClient client4 = HttpClientBuilder.create()
+                .setDefaultCredentialsProvider(provider)
+                .build();
+        HttpPut request4 = new HttpPut("http://localhost:8080/rent/updateRent");
+        
+        Gson gson4 = new Gson();
+            Rent rentx = new Rent();
+            
+            rentx.setID(rent.getID());
+            rentx.setCustomerID(cusID);
+            rentx.setRentDate(rent.getRentDate());
+            rentx.setReturnDate(rent.getReturnDate());
+            rentx.setRentalDays(rent.getRentalDays());
+            rentx.setTotalPrice(rent.getTotalPrice());
+            rentx.setOutstanding(false);
+            
+            
+            String jsonStrx = gson4.toJson(rentx);
+            
+
+            StringEntity entity5 = new StringEntity(jsonStrx);
+            request4.setEntity(entity5);
+            request4.setHeader("Accept", "application/json");
+            request4.setHeader("Content-type", "application/json");
+
+
+            HttpResponse response4 = client4.execute(request4);  
+            
+            String jsonUx = EntityUtils.toString(response4.getEntity());
+        Gson gsonUx = new Gson();// TODO add your handling code here:
+        rentx = gsonUx.fromJson(jsonUx, Rent.class);
+        
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+       }
+       catch(Exception e)
+       {
+           e.printStackTrace();
+       }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        RegisterPageForm form = new RegisterPageForm();
+        form.setVisible(true);
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +989,38 @@ public class CustomerForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPayRent;
+    private javax.swing.JButton btnRegister;
+    private javax.swing.JButton btnSignin;
+    private javax.swing.JButton btnViewCars;
+    private javax.swing.JButton btnViewRented;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelMain;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JLabel lblAmount;
+    private javax.swing.JLabel lblTotalDays;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

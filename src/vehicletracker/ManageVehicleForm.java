@@ -6,6 +6,10 @@
 package vehicletracker;
 
 import com.google.gson.Gson;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
@@ -13,6 +17,8 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
@@ -44,6 +50,8 @@ public class ManageVehicleForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         btnViewVehicleCat = new javax.swing.JButton();
+        btnAddCar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,23 +86,39 @@ public class ManageVehicleForm extends javax.swing.JFrame {
             }
         });
 
+        btnAddCar.setText("Add Car");
+        btnAddCar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCarActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
+                        .addComponent(btnAddCar)
+                        .addGap(41, 41, 41)
                         .addComponent(jButton1)
-                        .addGap(181, 181, 181)
+                        .addGap(53, 53, 53)
+                        .addComponent(jButton2)
+                        .addGap(55, 55, 55)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnViewVehicleCat)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addComponent(btnViewVehicleCat))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,7 +129,9 @@ public class ManageVehicleForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnViewVehicleCat))
+                    .addComponent(btnViewVehicleCat)
+                    .addComponent(btnAddCar)
+                    .addComponent(jButton2))
                 .addGap(20, 20, 20))
         );
 
@@ -190,11 +216,11 @@ public class ManageVehicleForm extends javax.swing.JFrame {
                 thing.getYear(),
                 thing.getNumberPlate(),
                 thing.getStatus(),
-                thing.getCategory()
+                thing.getCategoryId()
             };
             if(jComboBox1.getSelectedItem() == "Sedan")
             {
-                if(thing.getCategory().getID() == 1 )
+                if(thing.getCategoryId() == 1 )
                 {
                      model.addRow(rowData);
                 }
@@ -202,7 +228,7 @@ public class ManageVehicleForm extends javax.swing.JFrame {
             
              if(jComboBox1.getSelectedItem() == "SUV")
             {
-                if(thing.getCategory().getID() == 2 )
+                if(thing.getCategoryId() == 2 )
                 {
                      model.addRow(rowData);
                 }
@@ -210,7 +236,7 @@ public class ManageVehicleForm extends javax.swing.JFrame {
              
               if(jComboBox1.getSelectedItem() == "Limos")
             {
-                if(thing.getCategory().getID() == 3 )
+                if(thing.getCategoryId() == 3 )
                 {
                      model.addRow(rowData);
                 }
@@ -218,7 +244,7 @@ public class ManageVehicleForm extends javax.swing.JFrame {
               
                if(jComboBox1.getSelectedItem() == "Trailer")
             {
-                if(thing.getCategory().getID() == 4 )
+                if(thing.getCategoryId() == 4 )
                 {
                      model.addRow(rowData);
                 }
@@ -226,7 +252,7 @@ public class ManageVehicleForm extends javax.swing.JFrame {
                
                 if(jComboBox1.getSelectedItem() == "Buses")
             {
-                if(thing.getCategory().getID() == 5 )
+                if(thing.getCategoryId() == 5 )
                 {
                      model.addRow(rowData);
                 }
@@ -241,6 +267,24 @@ public class ManageVehicleForm extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnViewVehicleCatActionPerformed
+
+    private void btnAddCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCarActionPerformed
+        // TODO add your handling code here:
+        
+      this.setVisible(false);
+      NewCarForm form = new NewCarForm();
+      form.setVisible(true);
+           
+      
+    }//GEN-LAST:event_btnAddCarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+        this.setVisible(false);
+        AdminForm form = new AdminForm();
+        form.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,8 +322,10 @@ public class ManageVehicleForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddCar;
     private javax.swing.JButton btnViewVehicleCat;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

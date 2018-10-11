@@ -30,14 +30,22 @@ public class AdminForm extends javax.swing.JFrame {
         btnManageCust = new javax.swing.JButton();
         btnManageCars = new javax.swing.JButton();
         btnRentalHistory = new javax.swing.JButton();
-        btnReporting = new javax.swing.JButton();
-        btnManageUsers = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnManageCust.setText("Manage Customers");
+        btnManageCust.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageCustActionPerformed(evt);
+            }
+        });
 
         btnManageCars.setText("Manage Cars");
+        btnManageCars.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageCarsActionPerformed(evt);
+            }
+        });
 
         btnRentalHistory.setText("Rental History");
         btnRentalHistory.addActionListener(new java.awt.event.ActionListener() {
@@ -45,15 +53,6 @@ public class AdminForm extends javax.swing.JFrame {
                 btnRentalHistoryActionPerformed(evt);
             }
         });
-
-        btnReporting.setText("Reporting");
-        btnReporting.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportingActionPerformed(evt);
-            }
-        });
-
-        btnManageUsers.setText("Manage Users");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,25 +63,19 @@ public class AdminForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnManageCust, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRentalHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReporting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnManageCars, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnManageUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnManageCars, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addComponent(btnManageUsers)
-                .addGap(29, 29, 29)
+                .addGap(56, 56, 56)
                 .addComponent(btnManageCust)
-                .addGap(28, 28, 28)
+                .addGap(40, 40, 40)
                 .addComponent(btnManageCars)
-                .addGap(28, 28, 28)
+                .addGap(34, 34, 34)
                 .addComponent(btnRentalHistory)
-                .addGap(28, 28, 28)
-                .addComponent(btnReporting)
-                .addGap(35, 35, 35))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         pack();
@@ -90,11 +83,25 @@ public class AdminForm extends javax.swing.JFrame {
 
     private void btnRentalHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentalHistoryActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        ManageRentalForm form3 = new ManageRentalForm();
+        form3.setVisible(true);
     }//GEN-LAST:event_btnRentalHistoryActionPerformed
 
-    private void btnReportingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportingActionPerformed
+    private void btnManageCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageCustActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnReportingActionPerformed
+        this.setVisible(false);
+        ManageCustomerForm form = new ManageCustomerForm();
+        form.setVisible(true);
+    }//GEN-LAST:event_btnManageCustActionPerformed
+
+    private void btnManageCarsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageCarsActionPerformed
+        // TODO add your handling code here:
+        
+        this.setVisible(false);
+        ManageVehicleForm form2 = new ManageVehicleForm();
+        form2.setVisible(true);
+    }//GEN-LAST:event_btnManageCarsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,8 +141,6 @@ public class AdminForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnManageCars;
     private javax.swing.JButton btnManageCust;
-    private javax.swing.JButton btnManageUsers;
     private javax.swing.JButton btnRentalHistory;
-    private javax.swing.JButton btnReporting;
     // End of variables declaration//GEN-END:variables
 }

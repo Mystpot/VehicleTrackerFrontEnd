@@ -16,8 +16,9 @@ public class Car {
     private String model;
     private int year;
     private String numberPlate;
-    private Category category;
+    private int categoryId;
     private boolean status;
+    private int customerId;
     
     public Car()
     {
@@ -25,14 +26,15 @@ public class Car {
     }
     
     public Car(String make, String model, int year, 
-            String numberPlate, Category category, boolean status)
+            String numberPlate, int categoryId, boolean status, int customerId)
     {
         this.make = make;
         this.model = model;
         this.year = year;
         this.numberPlate = numberPlate;
-        this.category = category;
+        this.categoryId = categoryId;
         this.status = status;
+        this.customerId = customerId;
     }
     
     public Long getID() {
@@ -78,14 +80,14 @@ public class Car {
         numberPlate = np;
     }
      
-     public Category getCategory()
+     public int getCategoryId()
      {
-         return category;
+         return categoryId;
      }
      
-     public void setCategory(Category cat)
+     public void setCategoryId(int catID)
      {
-         category = cat;
+         categoryId = catID;
      }
 
     public boolean getStatus() {
@@ -95,4 +97,14 @@ public class Car {
      public void setStatus(boolean stat) {
         status = stat;
     }  
+     
+     public int getCustomerId()
+     {
+         return customerId;
+     }
+     
+     public void setCustomerId(int cId)
+     {
+         customerId = cId;
+     }
 }

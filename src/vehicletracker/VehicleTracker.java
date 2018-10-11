@@ -17,7 +17,12 @@ public class VehicleTracker {
     public static void main(String[] args) {
         // TODO code application logic here
         //ManageCustomerForm form = new ManageCustomerForm();
-        ManageVehicleForm form = new ManageVehicleForm();
+        //ManageVehicleForm form = new ManageVehicleForm();
+       //ManageRentalForm form = new ManageRentalForm();
+        CustomerForm form = new CustomerForm();
+        //RegisterPageForm form = new RegisterPageForm();
+        //NewCarForm form = new NewCarForm();
+        
         form.setVisible(true);
     }
     
